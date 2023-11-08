@@ -158,6 +158,9 @@ app.put('/videos/:id',(req:RequestWithBodyAndParams<UpdateVideoDto, Params>,res:
     if (typeof canBeDownloaded !== "boolean"){
         errors.errorsMessages.push({message: 'Invalid canBeDownloaded',field: 'canBeDownloaded'})
     }
+    if (typeof publicationDate !== "string"){
+        errors.errorsMessages.push({message: 'Invalid publicationDate',field: 'publicationDate'})
+    }
     if (typeof minAgeRestriction !== "undefined" && typeof minAgeRestriction === "number"){
         minAgeRestriction < 1 || minAgeRestriction > 18 && errors.errorsMessages.push({message: 'Invalid minAgeRestriction',field: 'minAgeRestriction'})
     } else {

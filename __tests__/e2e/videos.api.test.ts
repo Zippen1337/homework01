@@ -192,6 +192,34 @@ describe('/videos', () => {
             .expect(400)
     })
 
+    it('should not update video with incorrect canBeDownloaded', async () => {
+        await request(app)
+            .put('/videos/1')
+            .send({
+                title: 'title',
+                author: 'author',
+                availableResolutions: ['P144'],
+                canBeDownloaded: 'yes',
+                minAgeRestriction: 16,
+                publicationDate: 'DATE'
+            })
+            .expect(400)
+    })
+
+    it('should not update video with incorrect publicationDate', async () => {
+        await request(app)
+            .put('/videos/1')
+            .send({
+                title: 'title',
+                author: 'author',
+                availableResolutions: ['P144'],
+                canBeDownloaded: false,
+                minAgeRestriction: 16,
+                publicationDate: 12345
+            })
+            .expect(400)
+    })
+
     it('should delete a video by id', async () => {
         await request(app)
             .delete('/videos/1')
@@ -210,27 +238,4 @@ describe('/videos', () => {
             .expect(204)
     })
 
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-describe('/testing/all-data', () => {
-
-    it('should delete all data', async () => {
-        await request(app)
-            .delete('/testing/all-data')
-            .expect(204)
-    })
 })
